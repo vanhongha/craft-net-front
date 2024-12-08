@@ -1,7 +1,7 @@
 "use client";
-import Navbar from "@/components/navbar";
 import {useEffect} from "react";
 import { initFlowbite } from 'flowbite';
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
 	useEffect(() => {

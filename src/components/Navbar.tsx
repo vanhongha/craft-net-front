@@ -5,8 +5,9 @@ export default function Navbar() {
 				<div className="flex items-center justify-between w-1/2 md:max-w-[512px]">
 					<a href="" className="flex items-center space-x-3 rtl:space-x-reverse">
 						<img src="/images/craft-net-logo.svg" className="h-8" alt="Flowbite Logo"/>
-						<span
-							className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Craftnet</span>
+						<span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+							Craftnet
+						</span>
 					</a>
 					<form className="w-[calc(100%-150px)] mx-auto flex" height="12">
 						<label htmlFor="default-search"
