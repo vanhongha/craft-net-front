@@ -1,4 +1,17 @@
+import { useRouter } from "next/router";
+import { destroyCookie } from "nookies";
+
+import { ACCESS_TOKEN_KEY } from "@/constant/auth";
+
 export function Navbar() {
+  const router = useRouter();
+
+  const onSignOutHandler = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    destroyCookie(null, ACCESS_TOKEN_KEY);
+    router.push("/login");
+  };
+
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -156,12 +169,12 @@ export function Navbar() {
               </li>
             </ul>
             <div className="py-2">
-              <a
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                href="localhost:3000"
+              <button
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white w-full text-justify"
+                onClick={onSignOutHandler}
               >
                 Sign out
-              </a>
+              </button>
             </div>
           </div>
         </div>
