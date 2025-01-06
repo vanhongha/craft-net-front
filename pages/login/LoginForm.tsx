@@ -1,8 +1,63 @@
-import React, { useActionState } from "react";
-
-import { login } from "./actions";
+import React, { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { redirect } from "next/navigation";
+import { z } from "zod";
+import { setCookie } from "nookies";
 
 import InputFieldWithLabel from "@/components/common/InputFieldWithLabel";
+import { ACCESS_TOKEN_KEY } from "@/constant/auth";
+import { useRouter } from "next/router";
+
+interface IValidateLogin {
+  result: boolean;
+  errors: {
+    username?: string[];
+    password?: string[];
+  } | null;
+}
+
+const LOGIN_MUTATION = gql`
+  mutation Login($username: String!, $password: String!) {
+    auth {
+      login(input: { username: $username, password: $password })
+    }
+  }
+`;
+const loginSchema = z.object({
+  username: z.string().trim(),
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" })
+    .trim(),
+});
+
+function validateUsernameAndPassword(
+  username: string,
+  password: string
+): IValidateLogin {
+  if (!username || !password) {
+    return {
+      result: false,
+      errors: {
+        password: ["Please input username and password"],
+      },
+    };
+  }
+
+  const parseResult = loginSchema.safeParse({ username, password });
+
+  if (!parseResult.success) {
+    return {
+      result: false,
+      errors: parseResult.error.flatten().fieldErrors,
+    };
+  }
+
+  return {
+    result: true,
+    errors: null,
+  };
+}
 
 const emailSvg = (
   <svg
@@ -54,25 +109,68 @@ const passwordSvg = (
 );
 
 export default function LoginForm() {
-  const [state, loginAction] = useActionState(login, undefined);
+  const [login, { error, data, loading }] = useMutation(LOGIN_MUTATION);
+  const [username, setUsername] = useState("username");
+  const [password, setPassword] = useState("123456");
+  const [errors, setErrors] = useState<null | IValidateLogin["errors"]>(null);
+  const router = useRouter();
+
+  const onChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
+  };
+
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const onLoginHandler = async () => {
+    const validateResult = validateUsernameAndPassword(username, password);
+
+    if (!validateResult.result) {
+      setErrors(validateResult.errors);
+
+      return;
+    }
+
+    try {
+      const response = await login({
+        variables: {
+          username,
+          password,
+        },
+      });
+
+      const accessToken = response.data?.auth?.login?.accessToken;
+
+      if (accessToken) {
+        setCookie(null, ACCESS_TOKEN_KEY, accessToken, {
+          maxAge: 7 * 24 * 60 * 60,
+          path: "/",
+        });
+        router.push("/");
+      }
+    } catch (err) {}
+  };
 
   return (
-    <form action={loginAction}>
+    <form action={onLoginHandler}>
       <InputFieldWithLabel
         className="mb-4"
-        defaultValue={state?.dataFields?.username}
+        defaultValue={username}
         id="username"
         label="Username or Email Address"
         svg={emailSvg}
         type="text"
+        onChange={onChangeUsername}
       />
       <InputFieldWithLabel
         className="mb-4"
-        defaultValue={state?.dataFields?.password}
+        defaultValue={password}
         id="password"
         label="Your Password"
         svg={passwordSvg}
         type="password"
+        onChange={onChangePassword}
       />
       <div className="flex justify-between mb-4">
         <div>
@@ -102,7 +200,8 @@ export default function LoginForm() {
       >
         SIGN IN
       </button>
-      {state?.errors?.password}
+      {errors?.password}
+      {error?.message}
     </form>
   );
 }

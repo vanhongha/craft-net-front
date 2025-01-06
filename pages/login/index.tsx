@@ -1,4 +1,4 @@
-import LoginForm from "./LoginForm";
+import LoginForm from "./loginForm";
 
 import AnimationBackground from "@/components/login/AnimationBackground";
 import CardInner from "@/components/common/CardInner";

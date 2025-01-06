@@ -1,9 +1,8 @@
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-import { decrypt } from "@/lib/session";
+import { ACCESS_TOKEN_KEY } from "./constant/auth";
 
-const protectedRoutes = ["/docs"];
+const protectedRoutes = ["/"];
 const publicRoutes = ["/login"];
 
 export default async function middleware(req: NextRequest) {
@@ -11,20 +10,13 @@ export default async function middleware(req: NextRequest) {
   const isProtectedRoute = protectedRoutes.includes(path);
   const isPublicRoute = publicRoutes.includes(path);
 
-  // const cookie = (await cookies()).get("session")?.value;
-  // const session = await decrypt(cookie);
-  const session = {
-    username: null,
-  };
+  const accessToken = req.cookies.get(ACCESS_TOKEN_KEY)?.value;
 
-  console.log("isProtectedRoute", isProtectedRoute);
-  console.log("isPublicRoute", isPublicRoute);
-
-  if (isProtectedRoute && !session?.username) {
+  if (isProtectedRoute && !accessToken) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
 
-  if (isPublicRoute && session?.username) {
+  if (isPublicRoute && accessToken) {
     return NextResponse.redirect(new URL("/", req.nextUrl));
   }
 

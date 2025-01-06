@@ -7,6 +7,7 @@ type InputFieldWithLabelProps = {
   svg: React.ReactNode;
   className?: string;
   defaultValue?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => any;
 };
 
 export default function InputFieldWithLabel({
@@ -16,6 +17,7 @@ export default function InputFieldWithLabel({
   svg,
   className,
   defaultValue,
+  onChange,
 }: InputFieldWithLabelProps) {
   return (
     <div className={`${className || ""}`}>
@@ -30,6 +32,7 @@ export default function InputFieldWithLabel({
           id={id}
           name={id}
           type={type}
+          onChange={(e) => onChange(e)}
         />
       </div>
     </div>

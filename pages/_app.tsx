@@ -23,13 +23,13 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   return (
-    <ApolloProvider client={client}>
-      <NextUIProvider navigate={router.push}>
-        <NextThemesProvider>
+    <NextUIProvider navigate={router.push}>
+      <NextThemesProvider>
+        <ApolloProvider client={client}>
           <Component {...pageProps} />
-        </NextThemesProvider>
-      </NextUIProvider>
-    </ApolloProvider>
+        </ApolloProvider>
+      </NextThemesProvider>
+    </NextUIProvider>
   );
 }
 
