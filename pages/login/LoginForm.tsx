@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { redirect } from "next/navigation";
 import { z } from "zod";
 import { setCookie } from "nookies";
+import { useRouter } from "next/router";
 
 import InputFieldWithLabel from "@/components/common/InputFieldWithLabel";
-import { ACCESS_TOKEN_KEY } from "@/constant/auth";
-import { useRouter } from "next/router";
+import { ACCESS_TOKEN_KEY, USER_ID_KEY } from "@/constant/auth";
 
 interface IValidateLogin {
   result: boolean;
@@ -19,7 +18,10 @@ interface IValidateLogin {
 const LOGIN_MUTATION = gql`
   mutation Login($username: String!, $password: String!) {
     auth {
-      login(input: { username: $username, password: $password })
+      login(input: { username: $username, password: $password }) {
+        accessToken
+        userId
+      }
     }
   }
 `;
@@ -109,7 +111,7 @@ const passwordSvg = (
 );
 
 export default function LoginForm() {
-  const [login, { error, data, loading }] = useMutation(LOGIN_MUTATION);
+  const [login, { error }] = useMutation(LOGIN_MUTATION);
   const [username, setUsername] = useState("username");
   const [password, setPassword] = useState("123456");
   const [errors, setErrors] = useState<null | IValidateLogin["errors"]>(null);
@@ -141,9 +143,14 @@ export default function LoginForm() {
       });
 
       const accessToken = response.data?.auth?.login?.accessToken;
+      const userID = response.data?.auth?.login?.userId;
 
       if (accessToken) {
         setCookie(null, ACCESS_TOKEN_KEY, accessToken, {
+          maxAge: 7 * 24 * 60 * 60,
+          path: "/",
+        });
+        setCookie(null, USER_ID_KEY, userID, {
           maxAge: 7 * 24 * 60 * 60,
           path: "/",
         });
