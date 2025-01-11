@@ -13,8 +13,12 @@ export function Navbar() {
   };
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav
+      className="bg-white border-gray-200 dark:bg-gray-900 flex-no-wrap fixed top-0 flex w-full
+        items-center justify-between shadow-md shadow-black/5 dark:bg-neutral-600
+        dark:shadow-black/10 lg:flex-wrap lg:justify-start z-10"
+    >
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-3 w-full">
         <div className="flex items-center justify-between w-1/2 md:max-w-[512px]">
           <a
             className="flex items-center space-x-3 rtl:space-x-reverse"
