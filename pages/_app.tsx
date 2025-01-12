@@ -28,7 +28,6 @@ export default function App({ Component, pageProps }: AppProps) {
   const userCtx = {
     user: userData,
     setUser: (newUser: User) => {
-      console.log(newUser);
       setUserData(new User(newUser));
     },
   };
