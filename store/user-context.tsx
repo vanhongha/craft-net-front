@@ -4,5 +4,5 @@ import { IUser, User } from "@/models/user";
 
 export const UserContext = createContext({
   user: {} as User,
-  setUser: (newUser: IUser) => {},
+  setUser: (_newUser: IUser) => {},
 });

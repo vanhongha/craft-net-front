@@ -9,7 +9,7 @@ import { ApolloProvider } from "@apollo/client";
 import { useState } from "react";
 
 import "@/styles/globals.css";
-import { User, IUser } from "@/models/user";
+import { User } from "@/models/user";
 import { fontSans, fontMono } from "@/config/fonts";
 import { UserContext } from "@/store/user-context";
 
