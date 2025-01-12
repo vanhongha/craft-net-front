@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { z } from "zod";
 import { setCookie } from "nookies";
 import { useRouter } from "next/router";
 
 import InputFieldWithLabel from "@/components/common/InputFieldWithLabel";
 import { ACCESS_TOKEN_KEY, USER_ID_KEY } from "@/constant/auth";
+import { LOGIN_MUTATION } from "@/graphql/query/auth";
 
 interface IValidateLogin {
   result: boolean;
@@ -15,16 +16,6 @@ interface IValidateLogin {
   } | null;
 }
 
-const LOGIN_MUTATION = gql`
-  mutation Login($username: String!, $password: String!) {
-    auth {
-      login(input: { username: $username, password: $password }) {
-        accessToken
-        userId
-      }
-    }
-  }
-`;
 const loginSchema = z.object({
   username: z.string().trim(),
   password: z

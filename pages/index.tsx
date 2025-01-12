@@ -1,7 +1,27 @@
+import { useContext, useEffect } from "react";
+import _ from "lodash";
+
 import DefaultLayout from "@/layouts/default";
 import SideNavbar from "@/components/navigation/sideNavbar/sideNavbar";
+import { useGetUser } from "@/hooks/useGetUser";
+import { UserContext } from "@/store/user-context";
+import { User } from "@/models/user";
+import Loading from "@/components/loading/loading";
 
 export default function IndexPage() {
+  const userCtx = useContext(UserContext);
+  const { loading, data } = useGetUser();
+
+  useEffect(() => {
+    if (!loading && _.isNil(userCtx.user?.id)) {
+      userCtx.setUser(data.user.user as User);
+    }
+  }, [loading]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <DefaultLayout>
       <SideNavbar />
