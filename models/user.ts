@@ -6,6 +6,7 @@ export interface IUser {
   email?: string;
   phoneNumber?: string;
   status?: string;
+  avatarImgPath?: string;
 }
 export class User implements IUser {
   id: number | undefined;
@@ -14,6 +15,7 @@ export class User implements IUser {
   dateOfBirth: string | undefined;
   email: string | undefined;
   phoneNumber: string | undefined;
+  avatarImgPath: string | undefined;
   status: string | undefined;
 
   constructor(user: {
@@ -23,6 +25,7 @@ export class User implements IUser {
     dateOfBirth?: string;
     email?: string;
     phoneNumber?: string;
+    avatarImgPath?: string;
     status?: string;
   }) {
     this.id = user.id;
@@ -31,6 +34,7 @@ export class User implements IUser {
     this.dateOfBirth = user.dateOfBirth;
     this.email = user.email;
     this.phoneNumber = user.phoneNumber;
+    this.avatarImgPath = user.avatarImgPath;
     this.status = user.status;
   }
 

@@ -8,6 +8,11 @@ import { UserContext } from "@/store/user-context";
 export function Navbar() {
   const userCtx = useContext(UserContext);
   const router = useRouter();
+  let avatarImgPath = userCtx.user.avatarImgPath;
+
+  if (!avatarImgPath) {
+    avatarImgPath = "/default-avatar.png";
+  }
 
   const onSignOutHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -114,12 +119,16 @@ export function Navbar() {
         </div>
         <div>
           <button
-            className="h-10 rounded-full bg-cyan-300"
+            className="h-11 rounded-full bg-cyan-300"
             data-dropdown-toggle="dropdownInformation"
             id="dropdownInformationButton"
             type="button"
           >
-            <img alt="Avatar" className="h-full " src="/default-avatar.png" />
+            <img
+              alt="Avatar"
+              className="h-full rounded-full"
+              src={avatarImgPath}
+            />
           </button>
 
           {/*Dropdown menu*/}
