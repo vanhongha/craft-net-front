@@ -23,6 +23,7 @@
     "@nextui-org/system": "2.4.5",
     "@nextui-org/theme": "2.4.4",
     "@react-aria/visually-hidden": "3.8.18",
+    "apollo-link-error": "^1.1.13",
     "clsx": "2.1.1",
     "flowbite": "^2.5.2",
     "framer-motion": "^11.15.0",

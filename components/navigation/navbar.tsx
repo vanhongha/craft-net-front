@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
 import { useContext } from "react";
 
@@ -7,8 +6,7 @@ import { UserContext } from "@/store/user-context";
 
 export function Navbar() {
   const userCtx = useContext(UserContext);
-  const router = useRouter();
-  let avatarImgPath = userCtx.user.avatarImgPath;
+  let avatarImgPath = userCtx.user.avatarUrl;
 
   if (!avatarImgPath) {
     avatarImgPath = "/default-avatar.png";
@@ -17,7 +15,7 @@ export function Navbar() {
   const onSignOutHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     destroyCookie(null, ACCESS_TOKEN_KEY);
-    router.push("/login");
+    window.location.reload();
   };
 
   return (
@@ -26,7 +24,7 @@ export function Navbar() {
         items-center justify-between shadow-md shadow-black/5 dark:bg-neutral-600
         dark:shadow-black/10 lg:flex-wrap lg:justify-start z-10"
     >
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 py-3 w-full">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 w-full">
         <div className="flex items-center justify-between w-1/2 md:max-w-[512px]">
           <a
             className="flex items-center space-x-3 rtl:space-x-reverse"

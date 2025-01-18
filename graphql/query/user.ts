@@ -10,9 +10,11 @@ export const USER_QUERY = gql`
         dateOfBirth
         email
         phoneNumber
-        avatarImgPath
+        bio
         status
       }
+      avatarUrl
+      coverUrl
     }
   }
 `;
