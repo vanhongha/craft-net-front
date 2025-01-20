@@ -21,7 +21,6 @@ module.exports = {
   },
   darkMode: "class",
   plugins: [
-    nextui(),
-    require("tw-elements-react/dist/plugin.cjs")
+    nextui()
   ],
 };
