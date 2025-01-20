@@ -7,6 +7,7 @@ import ProfileHeader from "../../components/userProfile/profileHeader";
 import { USER_ID_KEY } from "@/constant/auth";
 import DefaultLayout from "@/layouts/default";
 import "../../styles/userProfile.css";
+import ProfileNavMenu from "@/components/userProfile/customNavMenu/profileNavMenu";
 
 export default function Home() {
   const router = useRouter();
@@ -19,8 +20,11 @@ export default function Home() {
       <div className="max-w-screen-xl w-full mx-auto">
         <ProfileHeader />
         <MenuTab />
-        <div className="bg-red-400">
-          Hello {username} {myUserId}
+        <div className="flex mt-6">
+          <ProfileNavMenu />
+          <div className="px-5">
+            Hello {username} {myUserId}
+          </div>
         </div>
       </div>
     </DefaultLayout>
