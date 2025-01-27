@@ -1,7 +1,11 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useContext } from "react";
 import _ from "lodash";
 
 import { UserContext } from "@/store/user-context";
+import BlueRoundedButton from "../common/buttons/blueRoundedButton";
+import WhiteRounedButton from "../common/buttons/whiteRoundedButton";
+import WhiteSquareButton from "../common/buttons/whiteSquareButton";
 
 export default function ProfileHeader() {
   const userCtx = useContext(UserContext);
@@ -34,6 +38,42 @@ export default function ProfileHeader() {
                 className="rounded-full border-2 w-48 h-48 m-auto"
                 src={avatarUrl}
               />
+              <WhiteRounedButton
+                className="right-0 bottom-0 !w-10 !h-10 absolute"
+                dataDropdownToggle="change-avatar"
+              >
+                <img
+                  alt="add to story"
+                  className="h-5 w-5 absolute"
+                  src="/svg/camera.svg"
+                />
+              </WhiteRounedButton>
+              <div
+                className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg w-44 dark:bg-gray-700 dark:divide-gray-600 shadow-lg shadow-gray-600"
+                id="change-avatar"
+              >
+                <ul
+                  aria-labelledby="dropdownDefaultButton"
+                  className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                >
+                  <li>
+                    <a
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      href="#"
+                    >
+                      Choose from photo
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      href="#"
+                    >
+                      Upload photo
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <div className="relative text-center w-full flex flex-row justify-between pl-10 pr-10 mt-[120px]">
@@ -49,33 +89,22 @@ export default function ProfileHeader() {
               </div>
             </div>
             <div className="w-1/3 flex flex-col items-center justify-center">
-              <button
-                className="flex items-center justify-center w-40 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4
-                  focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 my-1 dark:bg-blue-600
-                  dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                type="button"
-              >
+              <BlueRoundedButton>
                 <img
                   alt="add to story"
                   className="h-5 inline-block"
                   src="/svg/plus.svg"
                 />
                 <span className="inline-block ml-1">Add to story</span>
-              </button>
-              <button
-                className="flex items-center justify-center w-40 py-2.5 px-5 me-2 my-1 text-sm font-medium text-gray-900 focus:outline-none bg-white
-                  rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10
-                  focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400
-                  dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                type="button"
-              >
+              </BlueRoundedButton>
+              <WhiteRounedButton>
                 <img
                   alt="add to story"
                   className="h-5 inline-block"
                   src="/svg/edit.svg"
                 />
                 <span className="inline-block ml-1">Edit profile</span>
-              </button>
+              </WhiteRounedButton>
             </div>
           </div>
         </div>

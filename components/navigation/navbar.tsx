@@ -21,7 +21,7 @@ export function Navbar() {
   return (
     <nav
       className="bg-white border-gray-200 dark:bg-gray-900 flex-no-wrap fixed top-0 flex w-full
-        items-center justify-between shadow-md shadow-black/5 dark:bg-neutral-600
+        items-center justify-between shadow-md shadow-black/5
         dark:shadow-black/10 lg:flex-wrap lg:justify-start z-10"
     >
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 w-full">
@@ -117,14 +117,14 @@ export function Navbar() {
         </div>
         <div>
           <button
-            className="h-11 rounded-full bg-cyan-300"
+            className="h-11 rounded-full"
             data-dropdown-toggle="dropdownInformation"
             id="dropdownInformationButton"
             type="button"
           >
             <img
               alt="Avatar"
-              className="h-full rounded-full"
+              className="h-11 w-11 rounded-full"
               src={avatarImgPath}
             />
           </button>
